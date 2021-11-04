@@ -57,12 +57,22 @@ body {
     padding: 10px 20px;
     position: relative;
     z-index: 200;
+    display: inline-block;
 }
 
-.nav__menu a:hover {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #242f51;
+.nav__menu a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    background: #fcae61;
+    height: 3px;
+    left: 0;
+    top: 35px;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav__menu a:hover:after {
+    width: 100%;
 }
 
 .button-free {
@@ -77,10 +87,19 @@ body {
     z-index: 200;
 }
 
-.button-free:hover {
-    background-color: white;
-    border: 2px solid #2500f9;
-    color: #2500f9;
+.button-trial:after {
+    content: '';
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background: #2500f9;
+    transition: width 0.3s ease-in-out;
+}
+
+.button-trial:hover:after {
+    width: 100%;
 }
 
 .button-free_position {
@@ -153,7 +172,7 @@ body {
     border: 2px solid #2500f900;
 }
 
-.main .button-free:hover {
+.button-free:hover {
     background-color: white;
     border: 2px solid #2500f9;
     color: #2500f9;
@@ -164,13 +183,6 @@ body {
     color: #2500f9;
     position: relative;
     z-index: 200;
-}
-
-.tariff .button-trial:hover,
-.main .button-trial:hover {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #2500f9;
 }
 
 .main__content-pic {
@@ -560,9 +572,27 @@ h2 {
     justify-content: center;
 }
 
-.tariff__list .tariff__list_active {
+.tariff__list-content {
+    position: relative;
+    border: 2px solid #ebebeb;
+}
+
+.tariff__list-content:hover {
+    border: 2px solid #2500f900;
+}
+
+.tariff__list .tariff__list-content:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.tariff__list .tariff__list-content:hover:after {
     box-shadow: 0 50px 40px rgb(199, 199, 199);
-    border: 0;
 }
 
 .tariff__list ul {
@@ -570,7 +600,6 @@ h2 {
     width: 315px;
     border-radius: 10px;
     box-shadow: none;
-    border: 2px solid #ebebeb;
     height: 100%;
 }
 
@@ -731,6 +760,7 @@ h2 {
 .faq__description p {
     text-align: left;
     margin: 0;
+    font-weight: lighter;
 }
 
 .faq__description h3 {
@@ -743,7 +773,7 @@ h2 {
 }
 
 .faq__list-item {
-    padding: 22px 50px;
+    padding: 0 50px;
     background-color: #f5f7fa;
     font-size: 20px;
     color: #242f51;
@@ -752,18 +782,44 @@ h2 {
     position: relative;
 }
 
-.faq__list-item::after {
-    content: "";
+.faq .faq__list-answer {
+    font-weight: 300;
+}
+
+.faq__list p {
+    padding: 0 20px 20px;
+    margin: 0;
+    text-align: left;
+    font-weight: 300;
+    font-size: 16px;
+    font-family: Poppins;
+}
+
+details>summary {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+summary:before {
+    content: "+";
+    font-size: 30px;
+    font-weight: bold;
+    margin: -5px 5px 0 0;
     position: absolute;
-    top: 0;
-    right: 38px;
-    background: url(img/plus.svg) no-repeat center center;
-    width: 50px;
-    height: 100%;
+    top: 23px;
+    right: 15px;
+}
+
+details[open] summary:before {
+    content: "-";
 }
 
 .faq {
     margin-bottom: 110px;
+    font-weight: 300;
 }
 
 .download {
@@ -838,7 +894,8 @@ h2 {
 
 .footer__social img {
     width: 30px;
-    fill: white
+    fill: white;
+    color: white;
 }
 
 .footer__copyright {
@@ -849,11 +906,53 @@ h2 {
 }
 
 .footer__icon {
-    fill: white;
+    font-size: 30px;
+    transition: .3s;
 }
 
-.footer__nav a:hover {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #fff;
+.footer__icon:hover {
+    color: #fff;
+}
+
+
+/*------------------------------------------*/
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?vbsw40');
+    src: url('fonts/icomoon.eot?vbsw40#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?vbsw40') format('truetype'), url('fonts/icomoon.woff?vbsw40') format('woff'), url('fonts/icomoon.svg?vbsw40#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon_facebook:before {
+    content: "\e900";
+}
+
+.icon-icon_twitter:before {
+    content: "\e901";
+}
+
+.icon-icon_github:before {
+    content: "\e902";
+}
+
+.icon-icon-hashtag:before {
+    content: "\e903";
 }
